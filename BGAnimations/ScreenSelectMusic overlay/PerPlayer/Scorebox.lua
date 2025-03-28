@@ -48,9 +48,9 @@ local ResetAllData = function()
 	all_data = {}
 	SL[pn].Rival = {}
 	SL[pn].Rival.Score = 0
-	SL[pn].Rival.EXScore = 0
+	SL[pn].Rival.ExScore = 0
 	SL[pn].Rival.WRScore = 0
-	SL[pn].Rival.WREXScore = 0
+	SL[pn].Rival.WRExScore = 0
 	
 	for i=1,num_styles do
 		local data = {
@@ -95,8 +95,8 @@ local SetScoreData = function(data_idx, score_idx, rank, name, score, isSelf, is
 	
 	if not isFail and (isRival or isSelf) then
 		if data_idx == 3 then
-			if tonumber(score) > SL[pn].Rival.EXScore then
-				SL[pn].Rival.EXScore = tonumber(score)
+			if tonumber(score) > SL[pn].Rival.ExScore then
+				SL[pn].Rival.ExScore = tonumber(score)
 			end
 		else
 			if tonumber(score) > SL[pn].Rival.Score then
@@ -107,7 +107,7 @@ local SetScoreData = function(data_idx, score_idx, rank, name, score, isSelf, is
 	
 	if score_data.rank == 1 then
 		if data_idx == 3 then
-			SL[pn].Rival.WREXScore = tonumber(score)
+			SL[pn].Rival.WRExScore = tonumber(score)
 		else
 			if tonumber(score) > SL[pn].Rival.WRScore then
 				SL[pn].Rival.WRScore = tonumber(score)
@@ -178,13 +178,13 @@ local LeaderboardRequestProcessor = function(res, master)
 		all_data[2].has_data = false
 		
 		local showITG = SL["P"..n].ActiveModifiers.SBITGScore
-		local showEX = SL["P"..n].ActiveModifiers.SBEXScore
+		local showEX = SL["P"..n].ActiveModifiers.SBExScore
 		local showEvents = SL["P"..n].ActiveModifiers.SBEvents
 		
 		cur_style = 0
 
 		local numEntries = 0
-		if SL["P"..n].ActiveModifiers.ShowEXScore then
+		if SL["P"..n].ActiveModifiers.ShowExScore then
 			-- If the player is using EX scoring, then we want to display the EX leaderboard first.		
 			if showEX then
 				if data[playerStr]["exLeaderboard"] then
@@ -319,10 +319,6 @@ local LeaderboardRequestProcessor = function(res, master)
 						if entry["isSelf"] then
 							UpdateItlExScore(player, SL[pn].Streams.Hash, entry["score"])
 							SL["P"..n].itlScore = entry["score"]
-							local stepartist = SCREENMAN:GetTopScreen():GetChild("Overlay"):GetChild("PerPlayer"):GetChild("StepArtistAF_P"..n)
-							if stepartist ~= nil then
-							  stepartist:queuecommand("ITL")
-							end
 						end
 						numEntries = numEntries + 1
 						SetScoreData(4, numEntries,
@@ -668,7 +664,7 @@ local af = Def.ActorFrame{
 			self:diffusealpha(0):x(2):y(-5)
 		end,
 		LoopScoreboxCommand=function(self)
-			if (cur_style == 1 and not SL["P"..n].ActiveModifiers.ShowEXScore) or (cur_style == 0 and SL["P"..n].ActiveModifiers.ShowEXScore) then
+			if (cur_style == 1 and not SL["P"..n].ActiveModifiers.ShowExScore) or (cur_style == 0 and SL["P"..n].ActiveModifiers.ShowExScore) then
 				self:sleep(transition_seconds/2):linear(transition_seconds/2):diffusealpha(0.3)
 			else
 				self:linear(transition_seconds/2):diffusealpha(0)
