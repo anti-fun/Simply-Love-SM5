@@ -252,7 +252,7 @@ SL = {
 			color("#ff3030")	-- red (slightly lightened)
 		},
 		ITG = {
-			color("#FF00BE"),	-- blue
+			color("#21CCE8"),	-- blue
 			color("#e29c18"),	-- gold
 			color("#66c955"),	-- green
 			color("#b45cff"),	-- purple (greatly lightened)
@@ -260,7 +260,7 @@ SL = {
 			color("#ff3030")	-- red (slightly lightened)
 		},
 		["FA+"] = {
-			color("#FF00BE"),	-- blue
+			color("#FF00BE"),	-- magenta
 			color("#ffffff"),	-- white
 			color("#e29c18"),	-- gold
 			color("#66c955"),	-- green
